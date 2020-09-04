@@ -36,23 +36,21 @@ public class CategoryController {
 		List<Film> filmList = new ArrayList<Film>();
 		List<Category> categoriesTmp = new ArrayList<Category>();
 		List<Category> categoryList = new ArrayList<Category>();
-		if (searchStr != null) {
-			String[] nameTmp = searchStr.split(" ");
-			switch (nameTmp.length) {
-			case 1: {
-				String nameStr = "%" + nameTmp[0] + "%";
-				actorList = actorRepo.findByFirstNameLike(nameStr);
-				actorList.addAll(actorRepo.findByLastNameLike(nameStr));
-			}
-				break;
-			case 2: {
-				String firstName = "%" + nameTmp[0] + "%";
-				String secondName = "%" + nameTmp[1] + "%";
-				actorList = actorRepo.findByFirstNameLikeAndLastNameLike(firstName, secondName);
-				actorList.addAll(actorRepo.findByFirstNameLikeAndLastNameLike(secondName, firstName));
-			}
-				break;
-			}
+		String[] nameTmp = searchStr.split(" ");
+		switch (nameTmp.length) {
+		case 1: {
+			String nameStr = "%" + nameTmp[0] + "%";
+			actorList = actorRepo.findByFirstNameLike(nameStr);
+			actorList.addAll(actorRepo.findByLastNameLike(nameStr));
+		}
+			break;
+		case 2: {
+			String firstName = "%" + nameTmp[0] + "%";
+			String secondName = "%" + nameTmp[1] + "%";
+			actorList = actorRepo.findByFirstNameLikeAndLastNameLike(firstName, secondName);
+			actorList.addAll(actorRepo.findByFirstNameLikeAndLastNameLike(secondName, firstName));
+		}
+			break;
 		}
 
 		for (Actor actor : actorList) {
